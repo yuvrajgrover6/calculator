@@ -8,11 +8,10 @@ class CalculatorController extends GetxController {
   RxString operation = ''.obs;
   RxString textToDisplay = ''.obs;
   RxString history = ''.obs;
-  var tmp = ''.obs;
 
   void buttonOnClick(input) {
-    num temporary = 0.0;
     void calc() {
+      num temporary = 0.0;
       for (var element = 0; element < equation.value.length; element++) {
         switch (equation.value[element]) {
           case "+":
@@ -48,32 +47,22 @@ class CalculatorController extends GetxController {
       equation.value.add(input);
       textToDisplay.value = input;
       history.value = equation.value.join(' ');
-      tmp.value = textToDisplay.value;
-    } else if (input == 'C') {
-      equation.value = [];
+    }
+    if (input == 'C') {
+      equation.value.clear();
       textToDisplay.value = '0';
       history.value = '';
-      tmp.value = '';
-    } else if (input == '⌫') {
+    }
+    if (input == '⌫') {
       if (equation.value.isNotEmpty) {
         equation.value.removeLast();
         textToDisplay.value = equation.value.last!;
-        tmp.value = textToDisplay.value;
+        history.value = equation.value.join(' ');
+      } else if (equation.value.length == 1 || equation.value.isEmpty) {
+        textToDisplay.value = '0';
+        history.value = '';
+        
       }
-    } else if (input == '=') {
-      calc();
-      textToDisplay.value = temporary.toString();
-    }
-    if (input == 'C') {
-      equation.value = [];
-      // num1.value = null;
-      // num2.value = null;
-      // result.value = '';
-      operation.value = '';
-      textToDisplay.value = '0';
-      history.value = '';
-      temporary = 0;
-      return;
     }
   }
 }
