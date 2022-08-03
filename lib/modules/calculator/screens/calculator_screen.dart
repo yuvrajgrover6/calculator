@@ -74,7 +74,7 @@ class Calculator extends StatelessWidget {
                         ),
                         CalButton(
                           text: '÷',
-                          onPressed: () => controller.buttonOnClick('÷'),
+                          onPressed: () => controller.buttonOnClick('/'),
                           color: kPrimaryColor,
                           fontColor: Colors.white,
                         ),
@@ -101,7 +101,7 @@ class Calculator extends StatelessWidget {
                         ),
                         CalButton(
                           text: '\u0078',
-                          onPressed: () => controller.buttonOnClick('\u0078'),
+                          onPressed: () => controller.buttonOnClick('*'),
                           color: kPrimaryColor,
                           fontColor: Colors.white,
                         ),

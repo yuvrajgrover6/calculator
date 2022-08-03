@@ -1,68 +1,53 @@
 import 'package:get/get.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorController extends GetxController {
-  Rx<List<String?>> equation = Rx([]);
-  // Rx<num?> num1 = Rx(null);
+  Rx<String> equation = ''.obs;
+  // Rx<String> temp = ''.obs;
   // Rx<num?> num2 = Rx(null);
   // RxString result = ''.obs;
   RxString operation = ''.obs;
   RxString textToDisplay = ''.obs;
   RxString history = ''.obs;
+  calc() {
+    final Parser p = Parser();
+    Expression exp = p.parse(equation.value);
+    ContextModel cm = ContextModel();
+    double res = exp.evaluate(EvaluationType.REAL, cm);
+    equation.value = res.toString();
+    textToDisplay.value = equation.value;
+  }
 
   void buttonOnClick(input) {
-    void calc() {
-      num temporary = 0.0;
-      for (var element = 0; element < equation.value.length; element++) {
-        switch (equation.value[element]) {
-          case "+":
-            {
-              temporary += num.parse(equation.value[element - 1]!) +
-                  num.parse(equation.value[element + 1]!);
-            }
-            break;
-          case "-":
-            {
-              temporary += num.parse(equation.value[element - 1]!) -
-                  num.parse(equation.value[element + 1]!);
-            }
-            break;
-          case '\u0078':
-            {
-              temporary += num.parse(equation.value[element - 1]!) *
-                  num.parse(equation.value[element + 1]!);
-            }
-            break;
-
-          case "÷":
-            {
-              temporary += num.parse(equation.value[element - 1]!) /
-                  num.parse(equation.value[element + 1]!);
-            }
-            break;
-        }
-      }
+    if (input != 'C' && input != '⌫' && input != '=') {
+      equation.value += input;
+      textToDisplay.value = equation.value;
+    }
+    if (equation.value.isEmpty) {
+      history.value = equation.value;
+    }
+    if (equation.value.isNotEmpty) {
+      history.value = equation.value;
     }
 
-    if (input != 'C' && input != '⌫') {
-      equation.value.add(input);
-      textToDisplay.value = input;
-      history.value = equation.value.join(' ');
-    }
     if (input == 'C') {
-      equation.value.clear();
+      equation.value = '';
       textToDisplay.value = '0';
       history.value = '';
     }
     if (input == '⌫') {
-      if (equation.value.isNotEmpty) {
-        equation.value.removeLast();
-        textToDisplay.value = equation.value.last!;
-        history.value = equation.value.join(' ');
+      if (equation.value.isNotEmpty && equation.value.length > 1) {
+        equation.value = equation.value.substring(0, equation.value.length - 1);
+        textToDisplay.value = equation.value;
+        history.value = equation.value;
       } else if (equation.value.length == 1 || equation.value.isEmpty) {
         textToDisplay.value = '0';
         history.value = '';
-        
+        equation.value = '';
       }
+    }
+    if (input == '=') {
+      calc();
     }
   }
 }
