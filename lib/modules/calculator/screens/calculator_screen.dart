@@ -7,7 +7,7 @@ import '../buttons.dart';
 import '../controller/CalculatorController.dart';
 
 class Calculator extends StatelessWidget {
-  const Calculator({Key? key}) : super(key: key);
+  Calculator({Key? key}) : super(key: key) {}
 
   @override
   Widget build(BuildContext context) {
