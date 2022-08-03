@@ -1,4 +1,5 @@
 import 'package:calculator/modules/calculator/screens/calculator_screen.dart';
+import 'package:calculator/modules/currency/screens/currency_converter_screen.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -6,6 +7,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var focusNode = FocusNode();
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -25,7 +28,9 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: [
             Calculator(),
-            Container(child: Text('Currency Converter')),
+            CurrencyConverter(
+              focusnode: focusNode,
+            ),
           ],
         ),
       ),

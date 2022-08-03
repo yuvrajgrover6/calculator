@@ -1,7 +1,15 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   Rx<String> equation = ''.obs;
   // Rx<String> temp = ''.obs;
   // Rx<num?> num2 = Rx(null);
