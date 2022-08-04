@@ -1,29 +1,55 @@
+import 'package:calculator/contants.dart';
+import 'package:calculator/modules/currency/API/CurrencyConvert.dart';
+import 'package:calculator/modules/currency/models/exchange_rates.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class CurrencyController extends GetxController {
-  @override
-
-
-  final TextEditingController resultController = TextEditingController();
+  RxString result = "".obs;
+  late ConversionRates rates;
   Rx<double> amount = 0.0.obs;
   Rx<String> currency1 = 'INR'.obs;
   Rx<String> currency2 = 'USD'.obs;
-  Future apicall() async {
-    http.Response response;
-    response = await http.get(
-        Uri.parse(
-            "https://api.apilayer.com/exchangerates_data/convert?to=${currency2.value}&from=${currency1.value}&amount=${amount.value}"),
-        headers: {"apikey": "4R9ImZX8DUkEiLnmpRvDAxMPhiWmeL5b"});
-    if (response.statusCode == 200) {
-      var jsonData = jsonDecode(response.body);
-      resultController.text = jsonData['result'].toString();
-    } else if (response.statusCode == 400) {
-      resultController.text = "0";
+
+  @override
+  onInit() async {
+    await populateDBWithLatestRates();
+    await getSavedRatesFromDB();
+    super.onInit();
+  }
+
+  Future populateDBWithLatestRates() async {
+    final dateStr = hiveBox.get('date');
+    bool doUpdate = false;
+    if (dateStr != null) {
+      final date = DateTime.parse(dateStr);
+      if (DateTime.now().difference(date) > const Duration(days: 1)) {
+        doUpdate = true;
+      }
     } else {
-      resultController.text = "0";
+      doUpdate = true;
     }
+    if (doUpdate) {
+      final rates = ExchangeRatesResponse.fromJson(json
+          .decode((await http.get(Uri.parse(CurrencyApi.getAllRates))).body));
+      hiveBox.put("date", DateTime.now().toString());
+      hiveBox.put("rates", rates.conversionRates!.toJson());
+    }
+  }
+
+  Future getSavedRatesFromDB() async {
+    final ratesMap = await hiveBox.get("rates");
+    rates = ConversionRates.fromJson(Map<String,dynamic>.from(ratesMap));
+  }
+
+  void exchangeRates() async {
+    final currency1Rate = rates.exchangeRates[currency1]!;
+    final currency2Rate = rates.exchangeRates[currency2]!;
+    final excr = currency2Rate / currency1Rate;
+    result.value = (excr * amount.value).toString();
   }
 }

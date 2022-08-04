@@ -1,7 +1,10 @@
 import 'package:calculator/modules/home/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 AppOpenAd? openAd;
 Future<void> loadAd() async {
@@ -22,10 +25,14 @@ Future<void> loadAd() async {
 }
 
 void main() async {
-  runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await dotenv.load(fileName: ".env");
+  Hive.init((await getApplicationDocumentsDirectory()).path);
+
+  var box = await Hive.openBox('exchange_rates');
   await loadAd();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
