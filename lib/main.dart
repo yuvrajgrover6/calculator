@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 AppOpenAd? openAd;
 Future<void> loadAd() async {
   await AppOpenAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/3419835294',
+      adUnitId: 'ca-app-pub-2232158818732423/1187709886',
       request: const AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
