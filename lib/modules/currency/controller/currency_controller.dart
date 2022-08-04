@@ -23,27 +23,34 @@ class CurrencyController extends GetxController {
   }
 
   Future populateDBWithLatestRates() async {
-    final dateStr = hiveBox.get('date');
-    bool doUpdate = false;
-    if (dateStr != null) {
-      final date = DateTime.parse(dateStr);
-      if (DateTime.now().difference(date) > const Duration(days: 1)) {
+    for (var url in CurrencyApi.getAllRates()) {
+      final dateStr = hiveBox.get('date');
+      bool doUpdate = false;
+      if (dateStr != null) {
+        final date = DateTime.parse(dateStr);
+        if (DateTime.now().difference(date) > const Duration(days: 1)) {
+          doUpdate = true;
+        }
+      } else {
         doUpdate = true;
       }
-    } else {
-      doUpdate = true;
-    }
-    if (doUpdate) {
-      final rates = ExchangeRatesResponse.fromJson(json
-          .decode((await http.get(Uri.parse(CurrencyApi.getAllRates))).body));
-      hiveBox.put("date", DateTime.now().toString());
-      hiveBox.put("rates", rates.conversionRates!.toJson());
+      if (doUpdate) {
+        try {
+          final rates = ExchangeRatesResponse.fromJson(
+              json.decode((await http.get(Uri.parse(url))).body));
+          hiveBox.put("date", DateTime.now().toString());
+          hiveBox.put("rates", rates.conversionRates!.toJson());
+          break;
+        } catch (e) {
+          continue;
+        }
+      }
     }
   }
 
   Future getSavedRatesFromDB() async {
     final ratesMap = await hiveBox.get("rates");
-    rates = ConversionRates.fromJson(Map<String,dynamic>.from(ratesMap));
+    rates = ConversionRates.fromJson(Map<String, dynamic>.from(ratesMap));
   }
 
   void exchangeRates() async {

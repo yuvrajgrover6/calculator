@@ -1,6 +1,8 @@
+import 'package:calculator/modules/calculator/utils/modified_math_parser.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorController extends GetxController {
@@ -18,8 +20,9 @@ class CalculatorController extends GetxController {
   RxString textToDisplay = ''.obs;
   RxString history = ''.obs;
   calc() {
-    final Parser p = Parser();
-    Expression exp = p.parse(equation.value);
+    final lex = Lexer();
+    Expression exp =
+        parseTokenAndAppendToExpression(lex.tokenizeToRPN(equation.value));
     ContextModel cm = ContextModel();
     double res = exp.evaluate(EvaluationType.REAL, cm);
     equation.value = res.toString();

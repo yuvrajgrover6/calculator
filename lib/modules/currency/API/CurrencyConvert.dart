@@ -1,8 +1,17 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CurrencyApi {
-  static String getAllRates =
-      "https://v6.exchangerate-api.com/v6/${dotenv.env['CURRENCY_API_KEY']}/latest/USD";
+  static List<String> apiKey = [
+    dotenv.env['CURRENCY_API_KEY1']!,
+    dotenv.env['CURRENCY_API_KEY2']!,
+    dotenv.env['CURRENCY_API_KEY3']!,
+  ];
+  static Iterable<String> getAllRates() sync* {
+    for (var key in apiKey) {
+      yield "https://v6.exchangerate-api.com/v6/${key}/latest/USD";
+    }
+  }
+
   static const List<String> supportedCurrencies = [
     "AED",
     "AFN",
