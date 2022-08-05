@@ -18,47 +18,48 @@ class CalculatorController extends GetxController {
   // RxString result = ''.obs;
   RxString operation = ''.obs;
   RxString textToDisplay = ''.obs;
-  RxString history = ''.obs;
   calc() {
     final lex = Lexer();
     Expression exp =
         parseTokenAndAppendToExpression(lex.tokenizeToRPN(equation.value));
     ContextModel cm = ContextModel();
-    double res = exp.evaluate(EvaluationType.REAL, cm);
-    equation.value = res.toString();
-    textToDisplay.value = equation.value;
+
+    var res = exp.evaluate(EvaluationType.REAL, cm);
+    try {
+      if (int.parse(res.toString().split(".")[1]) == 0) {
+        res = int.parse((res as double).toStringAsFixed(0));
+      }
+      textToDisplay.value = res.toString();
+    } catch (e) {
+      textToDisplay.value = res.toString();
+    }
+    return res;
   }
 
   void buttonOnClick(input) {
     if (input != 'C' && input != '⌫' && input != '=') {
       equation.value += input;
-      textToDisplay.value = equation.value;
     }
-    if (equation.value.isEmpty) {
-      history.value = equation.value;
-    }
-    if (equation.value.isNotEmpty) {
-      history.value = equation.value;
-    }
-
     if (input == 'C') {
       equation.value = '';
-      textToDisplay.value = '0';
-      history.value = '';
+      textToDisplay.value = '';
     }
     if (input == '⌫') {
       if (equation.value.isNotEmpty && equation.value.length > 1) {
         equation.value = equation.value.substring(0, equation.value.length - 1);
-        textToDisplay.value = equation.value;
-        history.value = equation.value;
       } else if (equation.value.length == 1 || equation.value.isEmpty) {
         textToDisplay.value = '0';
-        history.value = '';
         equation.value = '';
       }
     }
     if (input == '=') {
+      equation.value = calc().toString();
+      return;
+    }
+    try {
       calc();
+    } catch (e) {
+      ; // NOTE: doesn't matter
     }
   }
 }

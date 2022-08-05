@@ -33,11 +33,11 @@ class Calculator extends StatelessWidget {
                               horizontal: width * 0.05,
                               vertical: height * 0.01),
                           child: Text(
-                            controller.history.value,
+                            controller.equation.value,
                             maxLines: 3,
                             style: TextStyle(
                                 fontSize: width * 0.07,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w200,
                                 overflow: TextOverflow.ellipsis,
                                 color: Colors.grey),
                           ),
