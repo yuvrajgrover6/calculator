@@ -19,12 +19,11 @@ class Home extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: controller.kPrimaryColor,
-
               title: TabBar(
-                // TODO: change colors to text colors
                   unselectedLabelColor: controller.kThirdColor,
-                  labelColor: controller.kSecondaryColor,
-                  indicatorWeight: 0.1,
+                  labelColor: controller.kPrimaryTextColor,
+                  indicatorColor: controller.kBackgroundColor,
+                  isScrollable: true,
                   tabs: const [
                     Tab(
                       child: Text('Calculator'),
@@ -36,7 +35,6 @@ class Home extends StatelessWidget {
                       child: Text('Settings'),
                     )
                   ]),
-              // title: const Text('Calculator'),
             ),
             body: TabBarView(
               children: [
@@ -44,7 +42,7 @@ class Home extends StatelessWidget {
                 CurrencyConverter(
                   focusnode: focusNode,
                 ),
-                SettingsScreen()
+                const SettingsScreen()
               ],
             ),
           ),

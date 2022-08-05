@@ -244,11 +244,21 @@ class SettingsScreen extends GetView<SettingsController> {
                     ),
                   ),
                   SizedBox(height: height * 0.02),
-                  ElevatedButton(
-                    onPressed: () {
-                      controller.reset();
-                    },
-                    child: const Text('Reset Customization'),
+                  Container(
+                    width: width * 0.5,
+                    height: height * 0.06,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              controller.kPrimaryColor)),
+                      onPressed: () {
+                        controller.reset();
+                      },
+                      child: Text(
+                        'Reset Customization',
+                        style: TextStyle(color: controller.kPrimaryTextColor),
+                      ),
+                    ),
                   ),
                   SizedBox(height: height * 0.04),
                 ],
