@@ -46,7 +46,7 @@ class CurrencyConverter extends StatelessWidget {
                     ),
                   ),
                   trailing: Container(
-                    color: Colors.white,
+                    color: Colors.transparent,
                     width: width * 0.5,
                     height: height * 0.2,
                     child: TextFormField(
