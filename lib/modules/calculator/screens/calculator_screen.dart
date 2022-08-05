@@ -69,22 +69,28 @@ class Calculator extends StatelessWidget {
                                 text: 'C',
                                 onPressed: () => controller.buttonOnClick('C'),
                                 color: settingsController.kSecondaryColor,
+                                fontColor:
+                                    settingsController.kSecondaryTextColor,
                               ),
                               CalButton(
                                 text: '%',
                                 onPressed: () => controller.buttonOnClick('%'),
                                 color: settingsController.kSecondaryColor,
+                                fontColor:
+                                    settingsController.kSecondaryTextColor,
                               ),
                               CalButton(
                                 text: '⌫',
                                 onPressed: () => controller.buttonOnClick('⌫'),
                                 color: settingsController.kSecondaryColor,
+                                fontColor:
+                                    settingsController.kSecondaryTextColor,
                               ),
                               CalButton(
                                 text: '÷',
                                 onPressed: () => controller.buttonOnClick('/'),
                                 color: settingsController.kPrimaryColor,
-                                fontColor: Colors.white,
+                                fontColor: settingsController.kPrimaryTextColor,
                               ),
                             ])),
                     Expanded(
@@ -96,22 +102,25 @@ class Calculator extends StatelessWidget {
                                 text: '7',
                                 onPressed: () => controller.buttonOnClick('7'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '8',
                                 onPressed: () => controller.buttonOnClick('8'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '9',
                                 onPressed: () => controller.buttonOnClick('9'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '\u0078',
                                 onPressed: () => controller.buttonOnClick('*'),
                                 color: settingsController.kPrimaryColor,
-                                fontColor: Colors.white,
+                                fontColor: settingsController.kPrimaryTextColor,
                               ),
                             ])),
                     Expanded(
@@ -123,22 +132,25 @@ class Calculator extends StatelessWidget {
                                 text: '4',
                                 onPressed: () => controller.buttonOnClick('4'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '5',
                                 onPressed: () => controller.buttonOnClick('5'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '6',
                                 onPressed: () => controller.buttonOnClick('6'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '-',
                                 onPressed: () => controller.buttonOnClick('-'),
                                 color: settingsController.kPrimaryColor,
-                                fontColor: Colors.white,
+                                fontColor: settingsController.kPrimaryTextColor,
                               ),
                             ])),
                     Expanded(
@@ -150,22 +162,25 @@ class Calculator extends StatelessWidget {
                                 text: '1',
                                 onPressed: () => controller.buttonOnClick('1'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '2',
                                 onPressed: () => controller.buttonOnClick('2'),
+                                fontColor: settingsController.kNumpadTextColor,
                                 color: settingsController.kThirdColor,
                               ),
                               CalButton(
                                 text: '3',
                                 onPressed: () => controller.buttonOnClick('3'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '+',
                                 onPressed: () => controller.buttonOnClick('+'),
                                 color: settingsController.kPrimaryColor,
-                                fontColor: Colors.white,
+                                fontColor: settingsController.kPrimaryTextColor,
                               ),
                             ])),
                     Expanded(
@@ -177,22 +192,25 @@ class Calculator extends StatelessWidget {
                                 text: '00',
                                 onPressed: () => controller.buttonOnClick('00'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '0',
                                 onPressed: () => controller.buttonOnClick('0'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '.',
                                 onPressed: () => controller.buttonOnClick('.'),
                                 color: settingsController.kThirdColor,
+                                fontColor: settingsController.kNumpadTextColor,
                               ),
                               CalButton(
                                 text: '=',
                                 onPressed: () => controller.buttonOnClick('='),
                                 color: settingsController.kPrimaryColor,
-                                fontColor: Colors.white,
+                                fontColor: settingsController.kPrimaryTextColor,
                               ),
                             ]))
                   ],
