@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:calculator/contants.dart';
+import 'package:calculator/localDBController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
@@ -35,15 +35,13 @@ class SettingsController extends GetxController {
     });
   }
 
-  primaryColorSwitcher() {}
   modifyColor(colors changed) {
-    Color toChange = colorScheme[changed]!.value;
     Get.dialog(Material(
       child: AlertDialog(
         title: const Text('Pick a color!'),
         content: SingleChildScrollView(
           child: ColorPicker(
-            pickerColor: toChange,
+            pickerColor: colorScheme[changed]!.value ,
             onColorChanged: (color) {
               colorScheme[changed]!.value = color;
             },
