@@ -20,17 +20,22 @@ class Home extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: controller.kPrimaryColor,
 
-              title: const TabBar(indicatorWeight: 0.1, tabs: [
-                Tab(
-                  child: Text('Calculator'),
-                ),
-                Tab(
-                  child: Text('Currency Converter'),
-                ),
-                Tab(
-                  child: Text('Settings'),
-                )
-              ]),
+              title: TabBar(
+                // TODO: change colors to text colors
+                  unselectedLabelColor: controller.kThirdColor,
+                  labelColor: controller.kSecondaryColor,
+                  indicatorWeight: 0.1,
+                  tabs: const [
+                    Tab(
+                      child: Text('Calculator'),
+                    ),
+                    Tab(
+                      child: Text('Currency Converter'),
+                    ),
+                    Tab(
+                      child: Text('Settings'),
+                    )
+                  ]),
               // title: const Text('Calculator'),
             ),
             body: TabBarView(
