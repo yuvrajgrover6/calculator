@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
-const kPrimaryColor = Colors.purple;
-const kSecondaryColor = Color.fromARGB(255, 243, 210, 249);
-const kThirdColor = Color.fromARGB(255, 218, 217, 217);
-final hiveBox = Hive.box('exchange_rates');
+class LocalDBController extends GetxController {
+  late Box exchangeRateLocalDB;
+  late Box colorsLocalDB;
+
+  static LocalDBController instance = Get.find();
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+  }
+
+  Future<void> intializeLocalDB() async {
+    Hive.init((await getApplicationDocumentsDirectory()).path);
+    exchangeRateLocalDB = await Hive.openBox('exchange_rates');
+    colorsLocalDB = await Hive.openBox('colors');
+  }
+}

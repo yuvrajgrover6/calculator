@@ -1,6 +1,9 @@
 import 'package:calculator/modules/calculator/screens/calculator_screen.dart';
 import 'package:calculator/modules/currency/screens/currency_converter_screen.dart';
+import 'package:calculator/modules/settings/controller/settings_controller.dart';
+import 'package:calculator/modules/settings/screens/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -9,31 +12,39 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var focusNode = FocusNode();
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.purple,
+    return GetX<SettingsController>(
+      builder: (controller) {
+        return DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: controller.kPrimaryColor,
 
-          title: const TabBar(indicatorWeight: 0.1, tabs: [
-            Tab(
-              child: Text('Calculator'),
+              title: const TabBar(indicatorWeight: 0.1, tabs: [
+                Tab(
+                  child: Text('Calculator'),
+                ),
+                Tab(
+                  child: Text('Currency Converter'),
+                ),
+                Tab(
+                  child: Text('Settings'),
+                )
+              ]),
+              // title: const Text('Calculator'),
             ),
-            Tab(
-              child: Text('Currency Converter'),
-            )
-          ]),
-          // title: const Text('Calculator'),
-        ),
-        body: TabBarView(
-          children: [
-            Calculator(),
-            CurrencyConverter(
-              focusnode: focusNode,
+            body: TabBarView(
+              children: [
+                Calculator(),
+                CurrencyConverter(
+                  focusnode: focusNode,
+                ),
+                SettingsScreen()
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

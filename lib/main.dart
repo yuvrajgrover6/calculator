@@ -1,4 +1,6 @@
+import 'package:calculator/contants.dart';
 import 'package:calculator/modules/home/screens/home.dart';
+import 'package:calculator/modules/settings/controller/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -27,11 +29,14 @@ Future<void> loadAd() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await Get.putAsync(() async {
+    final controller = LocalDBController();
+    await controller.intializeLocalDB();
+    return controller;
+  }, permanent: true);
   await dotenv.load(fileName: ".env");
-  Hive.init((await getApplicationDocumentsDirectory()).path);
-
-  var box = await Hive.openBox('exchange_rates');
   await loadAd();
+
   runApp(const MyApp());
 }
 
@@ -48,6 +53,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Home(),
+      initialBinding: BindingsBuilder(() async {
+        Get.put(SettingsController(), permanent: true);
+      }),
     );
   }
 }

@@ -15,6 +15,7 @@ class CurrencyController extends GetxController {
   Rx<String> currency1 = 'INR'.obs;
   Rx<String> currency2 = 'USD'.obs;
 
+  get exchangeRateLocalDB => LocalDBController.instance.exchangeRateLocalDB;
   @override
   onInit() async {
     await populateDBWithLatestRates();
@@ -24,7 +25,7 @@ class CurrencyController extends GetxController {
 
   Future populateDBWithLatestRates() async {
     for (var url in CurrencyApi.getAllRates()) {
-      final dateStr = hiveBox.get('date');
+      final dateStr = exchangeRateLocalDB.get('date');
       bool doUpdate = false;
       if (dateStr != null) {
         final date = DateTime.parse(dateStr);
@@ -38,8 +39,8 @@ class CurrencyController extends GetxController {
         try {
           final rates = ExchangeRatesResponse.fromJson(
               json.decode((await http.get(Uri.parse(url))).body));
-          hiveBox.put("date", DateTime.now().toString());
-          hiveBox.put("rates", rates.conversionRates!.toJson());
+          exchangeRateLocalDB.put("date", DateTime.now().toString());
+          exchangeRateLocalDB.put("rates", rates.conversionRates!.toJson());
           break;
         } catch (e) {
           continue;
@@ -49,7 +50,7 @@ class CurrencyController extends GetxController {
   }
 
   Future getSavedRatesFromDB() async {
-    final ratesMap = await hiveBox.get("rates");
+    final ratesMap = await exchangeRateLocalDB.get("rates");
     rates = ConversionRates.fromJson(Map<String, dynamic>.from(ratesMap));
   }
 
