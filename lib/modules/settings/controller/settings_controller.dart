@@ -104,8 +104,8 @@ class SettingsController extends GetxController {
     ));
   }
 
-  reset() {
-    colorsLocalDB.clear();
+  reset() async {
+    await colorsLocalDB.clear();
     initializeSettings();
   }
 
