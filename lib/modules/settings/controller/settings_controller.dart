@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:calculator/localDBController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -107,7 +109,13 @@ class SettingsController extends GetxController {
     initializeSettings();
   }
 
+  Timer? _debounce;
+
   void modifyButtonRadius(value) {
     (settings[colors.kButtonRadius])!.value = value;
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(seconds: 1), () {
+      colorsLocalDB.put(colors.kButtonRadius.name, value);
+    });
   }
 }
