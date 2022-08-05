@@ -12,7 +12,6 @@ enum colors {
   kPrimaryColor,
   kSecondaryColor,
   kThirdColor,
-  kNumPadColor,
   kBackgroundColor,
   kPrimaryTextColor,
   kSecondaryTextColor,
@@ -25,11 +24,10 @@ class SettingsController extends GetxController {
     colors.kPrimaryColor: Colors.purple,
     colors.kSecondaryColor: Color.fromARGB(255, 243, 210, 249),
     colors.kThirdColor: Color.fromARGB(255, 218, 217, 217),
-    colors.kNumPadColor: Color.fromARGB(255, 218, 217, 217),
-    colors.kBackgroundColor: Color.fromARGB(255, 218, 217, 217),
-    colors.kPrimaryTextColor: Color.fromARGB(255, 218, 217, 217),
-    colors.kSecondaryTextColor: Color.fromARGB(255, 218, 217, 217),
-    colors.kNumpadTextColor: Color.fromARGB(255, 218, 217, 217),
+    colors.kBackgroundColor: Colors.white,
+    colors.kPrimaryTextColor: Colors.white,
+    colors.kSecondaryTextColor: Colors.black,
+    colors.kNumpadTextColor: Colors.black,
     colors.kButtonRadius: 50.0
   };
   final Map<colors, Rx<Object>> settings =
@@ -37,7 +35,6 @@ class SettingsController extends GetxController {
   Color get kPrimaryColor => settings[colors.kPrimaryColor]!.value as Color;
   Color get kSecondaryColor => settings[colors.kSecondaryColor]!.value as Color;
   Color get kThirdColor => settings[colors.kThirdColor]!.value as Color;
-  Color get kNumPadColor => settings[colors.kNumPadColor]!.value as Color;
   Color get kBackgroundColor =>
       settings[colors.kBackgroundColor]!.value as Color;
   Color get kPrimaryTextColor =>
@@ -59,7 +56,6 @@ class SettingsController extends GetxController {
     initializeColor(colors.kPrimaryColor);
     initializeColor(colors.kSecondaryColor);
     initializeColor(colors.kThirdColor);
-    initializeColor(colors.kNumPadColor);
     initializeColor(colors.kBackgroundColor);
     initializeColor(colors.kPrimaryTextColor);
     initializeColor(colors.kSecondaryTextColor);

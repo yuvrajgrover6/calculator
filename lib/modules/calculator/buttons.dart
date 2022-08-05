@@ -8,13 +8,13 @@ class CalButton extends StatelessWidget {
   final String text;
   final Function onPressed;
   final Color color;
-  final Color? fontColor;
+  final Color fontColor;
   const CalButton(
       {Key? key,
       required this.text,
       required this.onPressed,
       required this.color,
-      this.fontColor})
+      required this.fontColor})
       : super(key: key);
 
   @override
@@ -35,8 +35,7 @@ class CalButton extends StatelessWidget {
             child: Center(
               child: Text(
                 text,
-                style:
-                    TextStyle(color: fontColor ?? Colors.black, fontSize: 20),
+                style: TextStyle(color: fontColor, fontSize: 20),
               ),
             ),
           ),

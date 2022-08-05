@@ -45,7 +45,7 @@ class SettingsScreen extends GetView<SettingsController> {
                               Text(
                                 'Primary Color',
                                 style: TextStyle(
-                                    color: controller.kPrimaryColor,
+                                    color: Colors.black,
                                     fontSize: width * 0.05),
                               ),
                               SizedBox(
@@ -56,6 +56,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                 width: height * 0.07,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
+                                    border: Border.all(color: Colors.black),
                                     color: controller.kPrimaryColor),
                               ),
                             ],
@@ -70,7 +71,7 @@ class SettingsScreen extends GetView<SettingsController> {
                               Text(
                                 'Secondary Color',
                                 style: TextStyle(
-                                    color: controller.kSecondaryColor,
+                                    color: Colors.black,
                                     fontSize: width * 0.05),
                               ),
                               SizedBox(
@@ -81,6 +82,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                 width: height * 0.07,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
+                                    border: Border.all(color: Colors.black),
                                     color: controller.kSecondaryColor),
                               ),
                             ],
@@ -88,14 +90,14 @@ class SettingsScreen extends GetView<SettingsController> {
                         ),
                         GestureDetector(
                             onTap: () =>
-                                controller.modifyColor(colors.kNumPadColor),
+                                controller.modifyColor(colors.kThirdColor),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'NumPad Color',
                                   style: TextStyle(
-                                      color: controller.kNumPadColor,
+                                      color: Colors.black,
                                       fontSize: width * 0.05),
                                 ),
                                 SizedBox(
@@ -106,7 +108,8 @@ class SettingsScreen extends GetView<SettingsController> {
                                   width: height * 0.07,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: controller.kNumPadColor),
+                                      border: Border.all(color: Colors.black),
+                                      color: controller.kThirdColor),
                                 ),
                               ],
                             )),
@@ -119,7 +122,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                 Text(
                                   'Background Color',
                                   style: TextStyle(
-                                      color: controller.kBackgroundColor,
+                                      color: Colors.black,
                                       fontSize: width * 0.05),
                                 ),
                                 SizedBox(
@@ -130,6 +133,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                   width: height * 0.07,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.black),
                                       color: controller.kBackgroundColor),
                                 ),
                               ],
@@ -143,7 +147,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                 Text(
                                   'Primary Text',
                                   style: TextStyle(
-                                      color: controller.kPrimaryTextColor,
+                                      color: Colors.black,
                                       fontSize: width * 0.05),
                                 ),
                                 SizedBox(
@@ -154,6 +158,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                   width: height * 0.07,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.black),
                                       color: controller.kPrimaryTextColor),
                                 ),
                               ],
@@ -167,7 +172,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                 Text(
                                   'Secondary Text',
                                   style: TextStyle(
-                                      color: controller.kSecondaryTextColor,
+                                      color: Colors.black,
                                       fontSize: width * 0.05),
                                 ),
                                 SizedBox(
@@ -178,6 +183,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                   width: height * 0.07,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.black),
                                       color: controller.kSecondaryTextColor),
                                 ),
                               ],
@@ -191,7 +197,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                 Text(
                                   'Numpad Text',
                                   style: TextStyle(
-                                      color: controller.kNumpadTextColor,
+                                      color: Colors.black,
                                       fontSize: width * 0.05),
                                 ),
                                 SizedBox(
@@ -202,6 +208,7 @@ class SettingsScreen extends GetView<SettingsController> {
                                   width: height * 0.07,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.black),
                                       color: controller.kNumpadTextColor),
                                 ),
                               ],
@@ -221,7 +228,6 @@ class SettingsScreen extends GetView<SettingsController> {
                           'Select Buttons Radius',
                           style: TextStyle(fontSize: 20),
                         ),
-                        // TODO:Not sliding properly
                         SfSlider(
                           tooltipShape: const SfPaddleTooltipShape(),
                           activeColor: controller.kPrimaryColor,
@@ -236,7 +242,15 @@ class SettingsScreen extends GetView<SettingsController> {
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(height: height * 0.02),
+                  ElevatedButton(
+                    onPressed: () {
+                      controller.reset();
+                    },
+                    child: const Text('Reset Customization'),
+                  ),
+                  SizedBox(height: height * 0.04),
                 ],
               ),
             ),
