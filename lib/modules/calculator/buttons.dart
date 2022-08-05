@@ -1,6 +1,8 @@
+import 'package:calculator/modules/settings/controller/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class CalButton extends StatelessWidget {
   final String text;
@@ -17,23 +19,29 @@ class CalButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      radius: 50,
-      onTap: () => onPressed(),
-      child: Container(
-        width: 70,
-        height: 70,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: color,
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(color: fontColor ?? Colors.black, fontSize: 20),
+    return GetX<SettingsController>(
+      builder: (settingsController) {
+        return InkWell(
+          radius: settingsController.kButtonRadius,
+          onTap: () => onPressed(),
+          child: Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(settingsController.kButtonRadius),
+              color: color,
+            ),
+            child: Center(
+              child: Text(
+                text,
+                style:
+                    TextStyle(color: fontColor ?? Colors.black, fontSize: 20),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

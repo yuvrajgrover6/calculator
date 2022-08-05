@@ -19,6 +19,7 @@ class CurrencyConverter extends StatelessWidget {
     return GetX<SettingsController>(
       builder: (settingsController) {
         return Scaffold(
+          backgroundColor: settingsController.kBackgroundColor,
           body: Container(
             child: Column(
               children: [
